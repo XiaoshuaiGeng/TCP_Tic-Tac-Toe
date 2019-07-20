@@ -21,4 +21,4 @@
 
 - TicTacToe.java a simple wrapper class for main.
 
-- global.java this is a global interface that is implemented by any class to maintain some shared constants. 
+- global.java this is a class that only has some global attributes. 
