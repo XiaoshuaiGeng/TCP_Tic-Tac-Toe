@@ -1,4 +1,4 @@
-This is an example of Tic_Tac_Toe game written in java.
+# This is an example of Tic_Tac_Toe game written in java.
 
 - block.java a block represents a playable cell and maintains a state attribute that is either EMPTY, occupied by X, or occupied by O) . By default it is EMPTY, would require setState, getState, and a toString where EMPTY is just a blank space.
 
