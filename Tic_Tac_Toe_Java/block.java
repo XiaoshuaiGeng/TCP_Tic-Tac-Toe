@@ -1,21 +1,21 @@
 
-public class block implements global{
+public class block {
 	private int state;
 	
 	
 	/**
 	 * @return create a block with state is E
 	 */
-	protected block()
+	public block()
 	{
-		this.state = E;
+		this.state = global.E;
 	}
 	
 	
 	/**
 	 * @return the state of this block
 	 */
-	protected int getState()
+	public int getState()
 	{
 		return state;
 	}
@@ -23,7 +23,7 @@ public class block implements global{
 	/**
 	 * @return set state to given String
 	 */
-	protected void setState(int a)
+	public void setState(int a)
 	{
 		state = a;
 	}
@@ -33,10 +33,10 @@ public class block implements global{
 	 */
 	public String toString()
 	{
-		if(state == E)
+		if(state == global.E)
 		{
 			return String.format("%10s", " ");
-		}if(state == X)
+		}if(state == global.X)
 		{
 			return String.format("%10s", "X");
 		}else

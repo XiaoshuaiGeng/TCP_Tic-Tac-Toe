@@ -18,8 +18,8 @@ public class AIPlayer extends player{
 	{
 		int a,b;
 		
-		a = (int) (Math.random() * 3);
-		b = (int) (Math.random() * 3);
+		//a = (int) (Math.random() * 3);
+		//b = (int) (Math.random() * 3);
 		
 		do
 		{
@@ -27,7 +27,7 @@ public class AIPlayer extends player{
 			b = (int) (Math.random() * 3);
 			if(gameboard.checkEmpty(a, b))
 			{
-				gameboard.makeMove(a, b, super.returnsym());
+				gameboard.makeMove(a, b, returnsym());
 				System.out.println("AI Player Moved.");
 				break;
 			}

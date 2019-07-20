@@ -1,9 +1,9 @@
 
-public class board implements global {
+public class board{
 	private block[][] blo = new block[3][3];
 	private int interState;
 	
-	protected board()
+	public board()
 	{
 		for(int i = 0; i<3;i++)
 		{
@@ -12,13 +12,13 @@ public class board implements global {
 				blo[i][a] = new block();
 			}
 		}
-		this.interState = E;
+		this.interState = global.E;
 	}
 	
 	/**
 	 * @return its interstate
 	 */
-	protected int returnInterState()
+	public int returnInterState()
 	{
 		return interState;
 	}
@@ -28,7 +28,7 @@ public class board implements global {
 	 */
 	public String toString()
 	{
-		return "\t" +String.format("%10s", "col 0") + String.format("%10s", "col 1") + String.format("%10s", "col 2")+"\nrow 0" + blo[0][0].toString() + blo[0][1].toString()+blo[0][2].toString()+"\nrow 1"+blo[1][0].toString() + blo[1][1].toString()+blo[1][2].toString()+"\nrow 2"+blo[2][0].toString() + blo[2][1].toString()+blo[2][2].toString();
+		return "\t" +String.format("%10s", "col 0") + String.format("%10s", "col 1") + String.format("%10s", "col 2")+"\nrow 0" + blo[0][0].toString() + blo[0][1].toString()+blo[0][2].toString()+"\n\nrow 1"+blo[1][0].toString() + blo[1][1].toString()+blo[1][2].toString()+"\n\nrow 2"+blo[2][0].toString() + blo[2][1].toString()+blo[2][2].toString();
 	}
 	
 	/**
@@ -36,7 +36,7 @@ public class board implements global {
 	 * @param b an integer denotes y-axis
 	 * @param sym a String denotes player's symbol
 	 */
-	protected void makeMove(int a, int b, int sym)
+	public void makeMove(int a, int b, int sym)
 	{
 		blo[a][b].setState(sym);
 		updateState();
@@ -47,9 +47,9 @@ public class board implements global {
 	 * @param b an positive integer denotes y-axis
 	 * @return whether position [a][b] is empty or not
 	 */
-	protected boolean checkEmpty(int a, int b)
+	public boolean checkEmpty(int a, int b)
 	{
-		if(blo[a][b].getState() == E)
+		if(blo[a][b].getState() == global.E)
 		{
 			return true;
 		}
@@ -59,7 +59,7 @@ public class board implements global {
 	/**
 	 * @return check if this game ends
 	 */
-	protected void updateState()
+	public void updateState()
 	{
 		int i;
 	
@@ -94,15 +94,15 @@ public class board implements global {
 		{
 			for(int j = 0; j < 3; j++)
 			{
-				if(blo[i][j].getState() == E)
+				if(blo[i][j].getState() == global.E)
 				{
-					interState = E;
+					interState = global.E;
 					return;
 				}
 			}
 		}
 
-		interState = draw;
+		interState = global.draw;
 		
 	}
 
@@ -114,7 +114,7 @@ public class board implements global {
 	 */
 	private boolean checkCol(int s1, int s2, int s3)
 	{
-		return(s1 != E && s1 == s2 && s2 == s3);
+		return(s1 != global.E && s1 == s2 && s2 == s3);
 	}
 	
 }

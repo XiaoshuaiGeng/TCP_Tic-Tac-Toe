@@ -1,5 +1,5 @@
 
-public abstract class player implements global{
+public abstract class player{
 
 	/**
 	 * @param name a String denotes the name of this player
