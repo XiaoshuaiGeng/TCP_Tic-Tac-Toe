@@ -1,6 +1,7 @@
 # An early_version Tic-Tac-Toe game using TCP
 ## The server have the source file to run the game
-## The client only need to receive the game board information and send the move info
+## The client only need to receive the game board information and send the move info back to the server
+### Server program has a AI player, client will always be a human player
 ## To run Server program:
   `java Server`
   
