@@ -22,14 +22,26 @@ public class Client {
         output.println("A new opponent joined...");
         try {
         	while(input.hasNextLine()) {
-        		System.out.println(input.nextLine());
-        		//output.println(in.nextLine());
+        		String command = input.nextLine();
+        		System.out.println(command);
+        		
+        		if(command.startsWith("GAME")) {
+        			break;
+        		}
+        		
+        		if(command.startsWith("REQUEST")) {
+        			output.println(in.nextLine());
+        		}
+        		
         	}
-        	
+        	in.close();
+        	input.close();
+        	output.close();
+        	socket.close();
         }catch(Exception e) {
         	e.printStackTrace();
         }
-        //System.out.println("Server response: " + in.nextLine());
         
     }
+    
 }

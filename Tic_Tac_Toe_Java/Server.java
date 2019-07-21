@@ -3,6 +3,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -23,7 +24,15 @@ public class Server {
                    
                    game myGame = new game(input,output);
             	   myGame.start();
-                   output.println(new Date().toString());
+                }catch(NoSuchElementException e){
+                	System.out.println("The client player has invalid input");
+                	
+                }catch(Exception e) {
+                	e.printStackTrace();
+                }finally {
+                	
+                	System.out.println("Player left...");
+                	
                 }
             }
         }
