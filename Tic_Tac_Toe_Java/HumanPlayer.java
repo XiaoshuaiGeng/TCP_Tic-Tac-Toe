@@ -22,20 +22,24 @@ public class HumanPlayer extends player{
 		 */
 		public void play(board gameboard) {
 			//boolean c;
-			int row,col;//store the player's next move
+			int row = -1,col = -1;//store the player's next move
 			
 			do {
-				output.println("REQUEST Please enter x-axis (row):  (0, 1, 2)");
-				row = input.nextInt();
+				try {
+					output.println("REQUEST Please enter x-axis (row):  (0, 1, 2)");
+					row = input.nextInt();
+					
+					output.println("REQUEST Please enter y-axis (col): (0, 1, 2)");
+					col = input.nextInt();
+								
+					if(gameboard.checkEmpty(row, col)) {
+						break;
+					}
+				}catch(Exception e) {
+						output.println("That may be an invalid input");
+				}
 				
-				output.println("REQUEST Please enter y-axis (col): (0, 1, 2)");
-				col = input.nextInt();
-				
-				
-				if(row < 0 || row >2 || col <0 || col >2)
-					continue;
-				
-				}while(!gameboard.checkEmpty(row, col));
+			}while(true);
 			
 			gameboard.makeMove(row, col, returnsym());
 			
