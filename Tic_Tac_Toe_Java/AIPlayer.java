@@ -27,7 +27,6 @@ public class AIPlayer extends player{
 		
 		
 		for(int [] move : preferredMoves) {
-			System.out.println(gameboard.checkEmpty(move[0], move[1]));
 			if(gameboard.checkEmpty(move[0], move[1])) {
 				gameboard.makeMove(move[0], move[1], symbol);
 				break;
