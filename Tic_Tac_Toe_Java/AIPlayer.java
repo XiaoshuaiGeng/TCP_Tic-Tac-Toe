@@ -31,23 +31,7 @@ public class AIPlayer extends player{
 				gameboard.makeMove(move[0], move[1], symbol);
 				break;
 			}
-			
-			
 		}
-		//int a,b;
-		
-		/*a = (int) (Math.random() * 3);
-		b = (int) (Math.random() * 3);
-		
-		do
-		{
-			if(gameboard.checkEmpty(a, b))
-			{
-				gameboard.makeMove(a, b, symbol);
-				//System.out.println("AI Player Moved.");
-				break;
-			}
-		}while(!gameboard.checkEmpty(a, b));*/
 	}
 	
 }

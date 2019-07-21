@@ -1,5 +1,6 @@
 
 import java.io.PrintWriter;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class HumanPlayer extends player{
@@ -26,12 +27,15 @@ public class HumanPlayer extends player{
 			
 			do {
 				try {
-					output.println("REQUEST Please enter x-axis (row):  (0, 1, 2)");
-					row = input.nextInt();
-					
-					output.println("REQUEST Please enter y-axis (col): (0, 1, 2)");
-					col = input.nextInt();
-								
+					String getInput;
+					output.println("REQUEST Please enter row and col num:   e.g [0,1] ");
+					getInput = input.nextLine();
+					row = Integer.parseInt(getInput.substring(1, 2));
+					col = Integer.parseInt(getInput.substring(3,4));
+					//output.println("REQUEST Please enter y-axis (col): (0, 1, 2)");
+					//col = input.nextInt();
+					//getInput = input.nextLine();
+					//col = Integer.parseInt(getInput);			
 					if(gameboard.checkEmpty(row, col)) {
 						break;
 					}
@@ -44,4 +48,6 @@ public class HumanPlayer extends player{
 			gameboard.makeMove(row, col, returnsym());
 			
 		}
+		
+		
 }
