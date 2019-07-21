@@ -30,7 +30,19 @@ public class Client {
         		}
         		
         		if(command.startsWith("REQUEST")) {
-        			output.println(in.nextLine());
+        			//get User input
+        			
+       				String user_command = in.nextLine();
+       				
+       				if(user_command.toUpperCase().startsWith("QUIT")) {
+       					//output.println("QUIT: Client left");
+       					break;
+           				
+            		}
+       				output.println(user_command);
+        			//jump out the loop and end program if User typed quit/QUIT
+        			
+        			
         		}
         		
         	}
