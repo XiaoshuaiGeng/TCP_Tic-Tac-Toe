@@ -12,7 +12,7 @@ public abstract class player{
 	 * @param name a String denotes the name of this player
 	 * @param symbol a String denotes the symbol of this player, will be X and O
 	 */
-	protected player(String name, int symbol)
+	public player(String name, int symbol)
 	{
 		if(name.equals("Enter name for player 1") || name.equals("Enter name for player 2"))
 		{
@@ -27,7 +27,7 @@ public abstract class player{
 	/**
 	 * @return the symbol of this player
 	 */
-	protected int returnsym()
+	public int returnsym()
 	{
 		return symbol;
 	}
@@ -35,7 +35,7 @@ public abstract class player{
 	/**
 	 * @return the name of this player
 	 */
-	protected String returnName()
+	public String returnName()
 	{
 		return name;
 	}
@@ -43,5 +43,5 @@ public abstract class player{
 	/**
 	 * @param gameboard a board
 	 */
-	protected abstract void play(board gameboard);
+	
 }

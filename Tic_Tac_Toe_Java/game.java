@@ -8,85 +8,96 @@ public class game{
 	private player playerX;
 	private player playerO;
 	private Scanner input;
+	//A scanner that scan the inputs from client
 	private PrintWriter output;
-	/**
-	 * @return initialize a game with two player and one gameboard
-	 */
+	private Scanner in = new Scanner(System.in);
+
+	//An output stream that direct to the client
 	public game(Scanner input,PrintWriter output)
 	{
-		this.gameboard = new board();
-		this.playerO = null;
-		this.playerX = null;
+		gameboard = new board();
 		this.input = input;
 		this.output = output;
+		
+	}
+	
+	public void start() {
+		
 		int counter,sy;
-		String na;
-		output.print("Welcome to this program\n");
+		boolean client_turn;
+		String name;
+		
+		System.out.println(input.nextLine());
+		//A new opponent joined...(print welcome info)	
+		output.println("This is a tic-tac-toe game\n");
+		output.println("You will play with a AI player");
+		//client player
+		output.println("Please enter your name: ");
+		name = input.nextLine();
+		//receive player's name
 		
 		
-		// first player
-		output.println("Do you want the player 1 to be \n1.Human Player\t2.AI Player");
-		counter = input.nextInt();
-		input.nextLine();
+		output.println("\nFlippin a coin...\n");
+		counter = (int)Math.random()*2 + 1; // will be 1 or 2
+		//1 will be the playerX,2 will be the playerO
+		if(counter == 1) {
+			playerX = new HumanPlayer(name,global.X);
+			playerO = new AIPlayer(global.O);
+			client_turn = true;
+		}else {
+			playerX = new AIPlayer(global.O);
+			playerO = new HumanPlayer(name,global.X);
+			client_turn = false;
+		}
 		
+		int row, col;
 		
-		if(counter == 2)
-		{// AI player
-			output.println("Which symbol do you want this player has?\n1.X\t2.O");
-			sy = input.nextInt();
-			if(sy == 1)
-			{
-				this.playerX = new AIPlayer(global.X);
+		while(gameboard.returnInterState()  == global.E)
+		{
+			if(client_turn)
+			{// client's turn
+				output.println(playerX.returnName()+"'s turn");
+				
+				output.println("Please enter x-axis (row):  (0, 1, 2)");
+				row = input.nextInt();
+				
+				output.println("Please enter y-axis (col)");
+				col = input.nextInt();
+				
+				
+				playerX.play(gameboard);
+				output.println("");
+				counter = 2;
+				output.println(gameboard+"\n");
 			}else
-			{
-				this.playerO = new AIPlayer(global.O);
-			}
-		}else
-		{// human player
-			output.println("Please enter player's name");
-			na = input.nextLine();
-			output.println("Which symbol do you want this player has?\n1.X\t2.O");
-			sy = input.nextInt();
-			if(sy == 1)
-			{
-				this.playerX = new HumanPlayer(na, global.X);
-			}else
-			{
-				this.playerO = new HumanPlayer(na, global.O);
+			{// AI's turn
+				output.println(playerO.returnName()+"'s turn");
+				playerO.play(gameboard);
+				output.println("");
+				counter = 1;
+				output.println(gameboard+"\n");
 			}
 		}
 		
-		// second player
-		output.println("Do you want the player 2 to be \n1.Human Player\t2.AI Player");
-		counter = input.nextInt();
-		input.nextLine();
-		if(counter == 2)
-		{// AI player
-			if(playerX == null)
-			{
-				this.playerX = new AIPlayer(global.X);
-			}else
-			{
-				this.playerO = new AIPlayer(global.O);
-			}
-		}else
-		{// human player
-			output.println("Please enter player's name");
-			na = input.nextLine();
-			if(playerX == null)
-			{
-				this.playerX = new HumanPlayer(na, global.X);
-			}else
-			{
-				this.playerO = new HumanPlayer(na, global.O);
-			}
+		if(gameboard.returnInterState() == global.X)
+		{
+			output.println("X wins");
+		}
+		
+		if(gameboard.returnInterState() == global.O)
+		{
+			output.println("Y wins");
+		}
+		if(gameboard.returnInterState() == global.draw)
+		{
+			output.println("Draw");
 		}
 		
 	}
 	
-	public void start()
+	/*public void start2()
 	{
-		int counter = (int)Math.random()*2 + 1; // will be 1 or 2
+		
 		
 		while(gameboard.returnInterState()  == global.E)
 		{
@@ -110,13 +121,18 @@ public class game{
 		if(gameboard.returnInterState() == global.X)
 		{
 			output.println("X wins");
-		}else if(gameboard.returnInterState() == global.O)
+		}
+		
+		if(gameboard.returnInterState() == global.O)
 		{
 			output.println("Y wins");
-		}else
+		}
+		if(gameboard.returnInterState() == global.draw)
 		{
 			output.println("Draw");
 		}
 		
-	}
+	}*/
+	
+	
 }

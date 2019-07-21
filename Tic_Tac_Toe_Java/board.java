@@ -1,18 +1,11 @@
 
 public class board{
-	private block[][] blo = new block[3][3];
+	private block[][] blo;
 	private int interState;
 	
 	public board()
 	{
-		for(int i = 0; i<3;i++)
-		{
-			for(int a = 0;a<3;a++)
-			{
-				blo[i][a] = new block();
-			}
-		}
-		this.interState = global.E;
+		blo = new block[3][3];
 	}
 	
 	/**
