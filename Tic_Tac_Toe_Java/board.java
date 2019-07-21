@@ -21,6 +21,22 @@ public class board{
 		return interState;
 	}
 	
+	
+	/**
+	 * 
+	 * 
+	 */
+	public String toGUIBoard() {
+		String result  = "BOARD ";
+		for(int i = 0; i < 3;i++) {
+			for(int j = 0; j <3; j++) {
+				result += blo[i][j].getState();
+			}
+		}
+		return result;
+		
+	}
+	
 	/**
 	 * @return this block
 	 */
@@ -39,15 +55,10 @@ public class board{
 		blo[a][b].setState(sym);
 		updateState();
 	}
-	
-	/**
-	 * @param a an positive integer denotes x-axis
-	 * @param b an positive integer denotes y-axis
-	 * @return whether position [a][b] is empty or not
-	 */
-	public boolean checkEmpty(int a, int b)
+
+	public boolean checkEmpty(int row, int col)
 	{
-		return blo[a][b].getState() == global.E;
+		return blo[row][col].getState() == global.E;
 		
 		
 	}

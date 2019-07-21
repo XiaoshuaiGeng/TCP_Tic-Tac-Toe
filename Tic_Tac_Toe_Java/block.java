@@ -19,6 +19,7 @@ public class block {
 		return state;
 	}
 	
+	
 	/**
 	 * @return set state to given String
 	 */

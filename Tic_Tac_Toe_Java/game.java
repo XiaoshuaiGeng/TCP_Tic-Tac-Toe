@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class game implements Runnable{
+	public static int playerNum = 0;
 	private board gameboard;
 	private player serverPlayer;
 	private player clientPlayer;
@@ -18,6 +19,7 @@ public class game implements Runnable{
 	//An output stream that direct to the client
 	public game(Socket socket) throws IOException
 	{
+		playerNum++;
 		gameboard = new board();
 		this.socket = socket;
 		this.input = new Scanner(socket.getInputStream());
@@ -97,6 +99,7 @@ public class game implements Runnable{
 				
 				}
 				client_turn = !client_turn;
+				output.println(gameboard.toGUIBoard());
 				output.println(gameboard.toString());
 			}
 			
@@ -121,6 +124,7 @@ public class game implements Runnable{
 			output.close();
 			
 			try {
+				game.playerNum--;
 				socket.close();
 				System.out.println("One socket closed");
 			} catch (IOException e1) {

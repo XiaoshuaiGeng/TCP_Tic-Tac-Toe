@@ -19,13 +19,10 @@ public class Server {
             System.out.println("Wait for your opponent...");
             ExecutorService pool = Executors.newCachedThreadPool();
             while (true) {
-                try /*(Socket socket = listener.accept())*/ {
-                   //PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
-                   //Scanner input = new Scanner(socket.getInputStream());
-                   
+                try {  
+                	
                    pool.execute(new game(listener.accept()));
-                   //game myGame = new game(input,output);
-            	   //myGame.run();
+                   System.out.println("\nCurrent Player #: "+game.playerNum+"\n");
                 }catch(NoSuchElementException e){
                 	System.out.println("The client player has invalid input");
 
@@ -34,7 +31,7 @@ public class Server {
                 	e.printStackTrace();
                 	
                 }finally {
-                	System.out.println("Player left...");
+                	System.out.println("Creating another thread");
                 	
                 }
             }
