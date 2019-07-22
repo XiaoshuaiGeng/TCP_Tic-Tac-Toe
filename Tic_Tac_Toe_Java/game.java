@@ -8,8 +8,8 @@ import java.util.Scanner;
 public class game implements Runnable{
 	public static int playerNum = 0;
 	private board gameboard;
-	private player serverPlayer;
-	private player clientPlayer;
+//	private player serverPlayer;
+//	private player clientPlayer;
 	private Socket socket;
 	private Scanner input;
 	//A scanner that scan the inputs from client
@@ -28,11 +28,9 @@ public class game implements Runnable{
 	}
 	
 	public void run() {
-		
-		
-		int mode;//decide pvp or pve 
-		
-		
+			
+		//int mode;//decide pvp or pve 
+
 		System.out.println(input.nextLine());
 		//A new opponent joined...(print welcome info)	
 		output.println("This is a tic-tac-toe game\n");
@@ -44,6 +42,7 @@ public class game implements Runnable{
 		
 	}
 	
+	//change gameMode according to user choice
 	private void gameMode(int mode) {
 		if(mode == 1) {
 			//PVP
@@ -60,12 +59,15 @@ public class game implements Runnable{
 	}
 	
 	private void PVE() {
+		
 		try {
+			HumanPlayer clientPlayer;
+			AIPlayer serverPlayer;
 			boolean client_turn;
 			String name;
 			output.println("You will play with a AI player");
 			//client player
-			output.println("REQUEST Please enter your name: ");
+			output.println("NAME");
 			name = input.nextLine();
 			System.out.println("The opponent's name: "+ name);
 			//receive player's name
@@ -89,17 +91,20 @@ public class game implements Runnable{
 				if(client_turn)
 				{// client's turn
 					output.println(clientPlayer.returnName()+"'s turn"+" Symbol: "+(clientPlayer.returnsym()==global.X?"X":"O"));
-					clientPlayer.play(gameboard);
+					output.println("REQUEST MOVE");
+					processCommand(clientPlayer);
+					//clientPlayer.play(gameboard);
 					
 				}else
 				{// Server's turn
 					//System.out.println("AI's turn");
 					output.println(serverPlayer.returnName()+"'s turn"+" Symbol: "+(serverPlayer.returnsym()==global.X?"X":"O"));
-					serverPlayer.play(gameboard);
-				
+					serverPlayer.play(serverPlayer.move(gameboard),gameboard);
+					
 				}
 				client_turn = !client_turn;
 				output.println(gameboard.toGUIBoard());
+				
 				output.println(gameboard.toString());
 			}
 			
@@ -119,7 +124,11 @@ public class game implements Runnable{
 			
 		}catch(NoSuchElementException e) {
 			
-			System.out.println("Client input failed");
+			System.out.println("Client accidentally quit the session");
+			
+		}catch(IllegalStateException e){
+			
+			System.out.println("Client left");
 			input.close();
 			output.close();
 			
@@ -127,12 +136,72 @@ public class game implements Runnable{
 				game.playerNum--;
 				socket.close();
 				System.out.println("One socket closed");
+				return;
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+		}catch(Exception e) {
+			System.out.println("Client left");
+			input.close();
+			output.close();
+			
+			try {
+				game.playerNum--;
+				socket.close();
+				System.out.println("One socket closed");
+				return;
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			return;
 		}
 		
 	}
+	public void processCommand(HumanPlayer player) throws IllegalStateException {
+		
+		String parseText = input.nextLine();
+		if(parseText.startsWith("INDEX")) {
+			int row = Integer.parseInt(parseText.substring(7, 8));
+			int col = Integer.parseInt(parseText.substring(9, 10));
+			if(gameboard.checkEmpty(row, col)) {
+				int[] index = new int[] {row, col};
+				player.play(index,gameboard);
+			}
+		}
+			
+		if(parseText.startsWith("QUIT")) {
+			throw new IllegalStateException();
+		}
+			
+		if(parseText.startsWith("RESTART")) {
+			gameboard.clearBoard();
+		}
+	}
+	
+	/*public void processEndCommand() {
+		String parseText = "";
+		if(input.hasNextLine()) {
+			parseText = input.nextLine();
+			
+		}
+		if(parseText.startsWith("QUIT")) {
+			System.out.println("Client left");
+			output.println("OK");
+			
+			try {
+				game.playerNum--;
+				socket.close();
+				System.out.println("One socket closed");
+				return;
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+		if(parseText.startsWith("RESTART")) {
+			gameboard.clearBoard();
+			gameMode(2);
+		}
+	}*/
+	
 	
 }

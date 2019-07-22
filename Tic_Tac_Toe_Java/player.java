@@ -27,5 +27,5 @@ public abstract class player{
 	/**
 	 * @param gameboard a board
 	 */
-	public abstract void play(board gameboard);
+	public abstract void play(int[] index,board gameboard) throws IllegalStateException;
 }

@@ -21,21 +21,18 @@ public class HumanPlayer extends player{
 		/**
 		 * @param gameboard the gameboard
 		 */
-		public void play(board gameboard) {
+		public void play(int[] index,board gameboard) throws IllegalStateException {
 			//boolean c;
-			int row = -1,col = -1;//store the player's next move
+			//int row = -1,col = -1;//store the player's next move
 			
-			do {
+			/*do {
 				try {
 					String getInput;
-					output.println("REQUEST Please enter row and col num:   e.g [0,1] ");
+					output.println("REQUEST Please enter row and col num:   e.g [row,col] ");
 					getInput = input.nextLine();
 					row = Integer.parseInt(getInput.substring(1, 2));
 					col = Integer.parseInt(getInput.substring(3,4));
-					//output.println("REQUEST Please enter y-axis (col): (0, 1, 2)");
-					//col = input.nextInt();
-					//getInput = input.nextLine();
-					//col = Integer.parseInt(getInput);			
+							
 					if(gameboard.checkEmpty(row, col)) {
 						break;
 					}
@@ -43,11 +40,10 @@ public class HumanPlayer extends player{
 						output.println("That may be an invalid input");
 				}
 				
-			}while(true);
+			}while(true);*/
 			
-			gameboard.makeMove(row, col, returnsym());
+			gameboard.makeMove(index[0],index[1], returnsym());
 			
 		}
-		
 		
 }

@@ -22,16 +22,21 @@ public class AIPlayer extends player{
 	 */
 	
 	
-	public void play(board gameboard)
+	public void play(int[] index,board gameboard) throws IllegalStateException
 	{
 		
+		gameboard.makeMove(index[0], index[1], symbol);
 		
+		
+	}
+	
+	public int[] move(board gameboard) {
 		for(int [] move : preferredMoves) {
 			if(gameboard.checkEmpty(move[0], move[1])) {
-				gameboard.makeMove(move[0], move[1], symbol);
-				break;
+				return new int[] {move[0],move[1]};
 			}
 		}
+		return new int[] {-1,-1};
 	}
 	
 }

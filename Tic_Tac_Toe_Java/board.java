@@ -124,4 +124,13 @@ public class board{
 		return(s1 != global.E && s1 == s2 && s2 == s3);
 	}
 	
+	public void clearBoard() {
+		
+		for(int i = 0; i < 3;i++) {
+			for(int j = 0; j <3;j++) {
+				blo[i][j] = new block();
+			}
+		}
+		this.interState = global.E;
+	}
 }
