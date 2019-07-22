@@ -15,14 +15,14 @@ import javax.swing.*;
  * the server as the sole argument. Exits after printing the response.
  */
 public class Client {
-	public static Socket socket;
+	//public static Socket socket;
 	public static boolean flag;
 	
 	public static class GUI_board extends JFrame{
-		private block[][] blo;
-		//private String interState;
+		
+		private block[][] blo;//block is implemented in class client below
 		private JFrame fr;
-		private String symbol = "O";
+		//private String symbol = "O";
 		public PrintWriter output;
 		
 		/**
@@ -280,7 +280,7 @@ public class Client {
 //            return;
 //        }
     	flag = true;
-        socket = new Socket("10.204.56.248", 59090);
+        Socket socket = new Socket("10.242.62.138", 59090);
         //10.242.62.138 127.0.0.1
         Scanner input = new Scanner(socket.getInputStream());
         PrintWriter output = new PrintWriter(socket.getOutputStream(),true);
