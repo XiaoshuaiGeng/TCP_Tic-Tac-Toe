@@ -42,7 +42,7 @@ public class GUI_board extends JFrame{
 	    	for(col = 0; col < 3; col++)
 	        {
 	        	buttons[row][col] = new Button("INDEX [" + row + "," + col+ "]");
-	        	buttons[row][col].getButton().addActionListener(new ActionListener()
+	        	buttons[row][col].addActionListener(new ActionListener()
 	        	{
 			        	public void actionPerformed(ActionEvent e)  
 			        	{  	
@@ -53,23 +53,24 @@ public class GUI_board extends JFrame{
 			        		//buttons[row][col].setEnabled(false);
 			        	}
 	        	});
-	        	this.add(buttons[row][col]);	
+	        	buttonPanel.add(buttons[row][col]);	
 	        }
 	    }
+	    
 	    start_Game = new JButton("Start");
 	    start_Game.setBackground(Color.decode("#80FAC5"));
 	    start_Game.setForeground(Color.decode("#F35050"));
-	    this.add(start_Game);
+	    //buttonPanel.add(start_Game);
 	    //start_Game.setBounds(125,270,150,50);
 	    start_Game.addActionListener(new ActionListener() 
 	    {
 			
 			public void actionPerformed(ActionEvent e) {
-				unlockBoard();
+				
 				currentUserName = name.getText();
 				
 				try {
-					
+					unlockBoard();
 					Client client = new Client(GUI_board.this,currentUserName);
 					client.run();
 					
@@ -161,6 +162,8 @@ public class GUI_board extends JFrame{
 	    this.setSize(400,450);
 		this.setVisible(true);  
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		
+		lockBoard();
 	}
 	public void lockBoard() {
 		
@@ -173,7 +176,7 @@ public class GUI_board extends JFrame{
 		}
 		name.setText("Please enter your name");
 		name.setEditable(true);
-		start_Game.setVisible(true);
+		//start_Game.setVisible(true);
 		start_Game.setEnabled(true);
 	}
 	public void unlockBoard() {
@@ -185,7 +188,7 @@ public class GUI_board extends JFrame{
 			}
 		}
 		name.setEditable(false);
-		start_Game.setVisible(false);
+		//start_Game.setVisible(false);
 		start_Game.setEnabled(false);
 	}
 	

@@ -34,8 +34,6 @@ public class Button extends JButton{
 			this.setEnabled(false);
 		}
 	}
-	public Button getButton() {
-		return this;
-	}
+
 	
 }
