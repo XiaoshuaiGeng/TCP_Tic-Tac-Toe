@@ -141,6 +141,8 @@ public class game implements Runnable{
 				e1.printStackTrace();
 			}
 		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
 			System.out.println("Client left");
 			input.close();
 			output.close();
@@ -153,7 +155,7 @@ public class game implements Runnable{
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-			return;
+			
 		}
 		
 	}
