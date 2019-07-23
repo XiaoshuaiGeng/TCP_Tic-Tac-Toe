@@ -1,7 +1,5 @@
 
-import java.io.PrintWriter;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+
 
 public class HumanPlayer extends player{
 		
