@@ -34,8 +34,5 @@ public class Button extends JButton{
 		}
 	}
 	
-	public Button getButton() {
-		return this;
-	}
 	
 }

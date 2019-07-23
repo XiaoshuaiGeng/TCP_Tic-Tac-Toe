@@ -3,6 +3,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.UnknownHostException;
 
 import javax.swing.JButton;
@@ -14,7 +15,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-//import Client.GUI_board.block;
 
 @SuppressWarnings("serial")
 public class GUI_board extends JFrame{
@@ -27,9 +27,6 @@ public class GUI_board extends JFrame{
 	public Button[][] buttons;// a 3x3 Jbutton
 	private String currentUserName;
 	private String socket_IP; //store the socket IP address
-	//private JFrame fr;
-	//private String symbol = "O";
-	//public PrintWriter output;
 	public boolean start = false;
 	public boolean exitFlag = false;
 		
@@ -51,10 +48,7 @@ public class GUI_board extends JFrame{
 			        	public void actionPerformed(ActionEvent e)  
 			        	{  	
 			        		Button button = (Button) e.getSource();
-			        		//buttons[row][col].setMark(client.getSymbol());
-			        		//String a = buttons[row][col].getIndex();
 			        		client.sendIndex(button.getIndex());
-			        		//buttons[row][col].setEnabled(false);
 			        	}
 	        	});
 	        	buttonPanel.add(buttons[row][col]);	
@@ -89,6 +83,12 @@ public class GUI_board extends JFrame{
 					}
 					name.setEditable(false);
 					IPAddress.setEditable(false);
+				}catch(ConnectException c) {
+					JOptionPane.showMessageDialog(GUI_board.this,
+						    "Server is not running",
+						    "Connect Failed",
+						    JOptionPane.WARNING_MESSAGE);
+				
 				}catch(UnknownHostException v){
 					JOptionPane.showMessageDialog(GUI_board.this,
 						    "Unknown IP address",
@@ -102,24 +102,8 @@ public class GUI_board extends JFrame{
 			}
 			
 	    });
-	    
-	     /*start_Game.addActionListener(new ActionListener() 
-	     {
-	    		public void actionPerformed(ActionEvent e) 
-	    		{
-	    			output.println(name.getText());
-	    			for(int i=0;i<3;i++) {
-	    				for(int j=0;j<3;j++) {
-	    					blo[i][j].returnBut().setEnabled(true);
-	    				}
-	    			}
-	    			name.setEditable(false);
-	    			name.setHorizontalAlignment(JTextField.CENTER);
-	    			name.setForeground(Color.BLACK);
-	    		}
-	     });*/
 	    	
-	    name = new JTextField("Default user");
+	    name = new JTextField("Default Name");
 	    //name.setBackground(Color.decode("#80FAC5"));
 	    	
 	    name.addActionListener(new ActionListener() {
@@ -137,14 +121,14 @@ public class GUI_board extends JFrame{
 	    IPAddress.setHorizontalAlignment(JTextField.CENTER);
 	    IPAddress.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				socket_IP = IPAddress.getText();
+				//socket_IP = IPAddress.getText();
 			}
 		});
 	    
 	    buttonPanel.add(start_Game);
 	    buttonPanel.add(name);
 	    buttonPanel.add(IPAddress);
-	        // set menu
+	    // set menu
 		mb = new JMenuBar();
 		menu = new JMenu("Menu");
 		exit = new JMenuItem("Exit");
@@ -189,8 +173,6 @@ public class GUI_board extends JFrame{
 				}catch(Exception e) {
 					
 				}
-		    	
-//		   		dispose();
 		   	}
 		});
 		   
@@ -204,30 +186,25 @@ public class GUI_board extends JFrame{
 	    this.setSize(400,450);
 		this.setVisible(true);  
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		
-		//lockBoard();
 	}
 	public void lockBoard() {
-		
 		for(int row = 0; row < 3; row++) {
 			for(int col = 0; col < 3 ;col++) {
-				
 				buttons[row][col].setEnabled(false);
-				
 			}
 		}
-		name.setText("Please enter your name");
+		name.setText("Default Name");
 		name.setEditable(true);
 		//start_Game.setVisible(true);
 		start_Game.setEnabled(true);
 		IPAddress.setEditable(true);
 	}
+	
+	
 	public void unlockBoard() {
 		for(int row = 0; row < 3; row++) {
 			for(int col = 0; col < 3 ;col++) {
-				
 				buttons[row][col].setEnabled(true);
-				
 			}
 		}
 		name.setEditable(false);
@@ -239,9 +216,7 @@ public class GUI_board extends JFrame{
 	public void clearBoard() {
 		for(int row = 0; row < 3; row++) {
 			for(int col = 0; col < 3 ;col++) {
-				
 				buttons[row][col].setMark("0");
-				
 			}
 		}
 	}
