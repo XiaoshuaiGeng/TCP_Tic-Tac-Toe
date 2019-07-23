@@ -1,24 +1,28 @@
-    
+import java.io.IOException;
 
 public class Tester {
 
-	public static void main(String[] args) {
-		//System.out.println("hello");
+	public static void main(String[] args) throws Exception {
+		
+		
 		GUI_board board = new GUI_board();
-		//System.out.println(board.start);
-		while(true) {
+		Client client = new Client(board);
+		board.client = client;
+		board.lockBoard();
+		while(!client.gameStart) {
 			System.out.print("");
 			System.out.flush();
-			if(board.start) {
-				board.client.run();
-				//board.unlockBoard();
-			}
-				
-			board.start=false;
-			if(board.exitFlag == true)
-				break;
 		}
-		//board.getClient().run();
+		
+		System.out.println("game Start\n");
+			try {
+				
+				client.run();
+			
+			} catch (Exception e) {
+				System.out.println("error");
+		}
+		//Client.start(GUI_board)
 		//()
 		
 	}

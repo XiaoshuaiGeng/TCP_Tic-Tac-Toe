@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 
 public class Client{
 	
+	boolean gameStart = false;
 	public PrintWriter output;
 	public GUI_board board;
 	public Socket socket;
@@ -16,13 +17,14 @@ public class Client{
 	private String symbol;
 	private boolean gameEnd;
 	
-	public Client(GUI_board board,String name) throws UnknownHostException, IOException {
+	public Client(GUI_board board) throws IOException{
 		this.board = board;
-		setName(name);
+		//this.name = name;
 		this.socket = new Socket("10.242.62.138", 59090);
+		
 		this.gameEnd = false;
-		this.input = new Scanner(socket.getInputStream());
-	    this.output = new PrintWriter(socket.getOutputStream(),true);
+		input = new Scanner(socket.getInputStream());
+	    output = new PrintWriter(socket.getOutputStream(),true);
 	} 
 	
 	public void quit() throws IOException {
@@ -36,44 +38,45 @@ public class Client{
 	public void sendIndex(String index) {
 		output.println(index);
 	}
+	public void sendName(String name) {
+		output.println(name);
+	}
 	
 	public void setBoard(String command) {
 		for(int i=6; i<command.length();i++) {
 			// index start from 6 after "BOARD "
 			if(i>=6 && i <9) 
-				board.buttons[0][i-6].setMark(command.substring(i,i+1));
+				board.buttons[0][i-6].setText(command.substring(i,i+1));
 
 			if(i>=9 && i<12) 
-				board.buttons[1][i-9].setMark(command.substring(i,i+1));
+				board.buttons[1][i-9].setText(command.substring(i,i+1));
 			
 			if(i>=12) 
-				board.buttons[2][i-12].setMark(command.substring(i,i+1));
+				board.buttons[2][i-12].setText(command.substring(i,i+1));
 		}
 	}
 	
-	public void run() {
-		while(isGameEnd()!=true && input.hasNextLine()) {
-			//System.out.println(getName());
-			//System.out.println(getSymbol());
-			//board.unlockBoard();
+	public void run() throws Exception{
+		//board.lockBoard();
+		
+		//output.println(getName());
+		while(input.hasNextLine()) {
 			String command;
 			command = input.nextLine();
 			System.out.println(command);
 			if(command.startsWith("BOARD")) {
-				//System.out.println("set mark!");
 				setBoard(command);
 			}
 			else if(command.startsWith("GAME")) {
 				setGameEnd(true);
 			}
 			else if(command.startsWith("SYMBOL")) {
-				setSymbol(command.substring(7,8));
+				setSymbol(command.substring(6,7));
 			}
-			else if(command.startsWith("NAME")) {
-				output.println(getName());
-			}
+//			else if(command.startsWith("NAME")) {
+//				output.println(getName());
+//			}
 		}
-		System.out.println(isGameEnd());
 	}
 		
 	public void setName(String name) {
@@ -89,15 +92,16 @@ public class Client{
 	}
 	
 	public boolean isGameEnd() {
-		return this.gameEnd;
+		return gameEnd;
 	}
 	public void setSymbol(String sym) {
-		this.symbol=sym;
+		symbol=sym;
 	}
 	
 	public String getSymbol() {
-		return this.symbol;
+		return symbol;
 	}
+	
 	
 	
 }

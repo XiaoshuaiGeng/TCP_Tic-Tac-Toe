@@ -2,6 +2,10 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -16,6 +20,7 @@ import javax.swing.JTextField;
 //import Client.GUI_board.block;
 
 public class GUI_board extends JFrame{
+	
 	public Client client;
 	private JButton start_Game;
 	private JTextField name;
@@ -28,8 +33,6 @@ public class GUI_board extends JFrame{
 	//private JFrame fr;
 	//private String symbol = "O";
 	//public PrintWriter output;
-	public boolean start = false;
-	public boolean exitFlag = false;
 		
 	public GUI_board()
 	{
@@ -44,17 +47,45 @@ public class GUI_board extends JFrame{
 	    	for(col = 0; col < 3; col++)
 	        {
 	        	buttons[row][col] = new Button("INDEX [" + row + "," + col+ "]");
-	        	buttons[row][col].addActionListener(new ActionListener()
-	        	{
-			        	public void actionPerformed(ActionEvent e)  
-			        	{  	
-			        		Button button = (Button) e.getSource();
-			        		//buttons[row][col].setMark(client.getSymbol());
-			        		//String a = buttons[row][col].getIndex();
-			        		client.sendIndex(button.getIndex());
-			        		//buttons[row][col].setEnabled(false);
-			        	}
-	        	});
+	        	
+	        	buttons[row][col].addMouseListener(new MouseListener() {
+					public void mouseClicked(MouseEvent e) {
+						Button button = (Button) e.getSource();
+						//System.out.println(button.getName());
+						client.sendIndex(button.getName());
+						//button.setMark(client.getSymbol());
+					}
+					public void mousePressed(MouseEvent e) {						
+					}
+					public void mouseReleased(MouseEvent e) {
+					}
+					public void mouseEntered(MouseEvent e) {
+					}
+					public void mouseExited(MouseEvent e) {
+					}
+				});
+	        	buttons[row][col].addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						Button button = (Button) e.getSource();
+						System.out.println(client.getSymbol());
+						button.setMark(client.getSymbol());
+					}
+				});
+	        	
+//	        	buttons[row][col].addActionListener(new ActionListener()
+//	        	{
+//			        	public void actionPerformed(ActionEvent e)  
+//			        	{  	
+//			        		
+//			        		System.out.println(button.getIndex());
+//			        		//buttons[row][col].setMark(client.getSymbol());
+//			        		//String a = buttons[row][col].getIndex();
+//			        		client.sendIndex(button.getIndex());
+//			        		//buttons[row][col].setEnabled(false);
+//			        	}
+//	        	});
 	        	buttonPanel.add(buttons[row][col]);	
 	        }
 	    }
@@ -64,36 +95,43 @@ public class GUI_board extends JFrame{
 	    start_Game.setForeground(Color.decode("#F35050"));
 	    //buttonPanel.add(start_Game);
 	    //start_Game.setBounds(125,270,150,50);
-	    start_Game.addActionListener(new ActionListener() 
-	    {
-			
-			public void actionPerformed(ActionEvent e) {
+	    start_Game.addMouseListener(new MouseListener() {
+			public void mouseReleased(MouseEvent e) {
+			}
+			public void mousePressed(MouseEvent e) {
+			}
+			public void mouseExited(MouseEvent e) {
+			}
+			public void mouseEntered(MouseEvent e) {
+			}
+			public void mouseClicked(MouseEvent e) {
+				unlockBoard();
+				client.sendName(name.getText());
+				client.gameStart = true;
 				
-				currentUserName = name.getText();
-				
-				try {
-					
-					client = new Client(GUI_board.this,currentUserName);
-					//getClient().run();
-					start = true;
-					JButton button = (JButton) e.getSource();
-					button.setEnabled(false);
-					for(int row = 0; row < 3; row++) {
-						for(int col = 0; col < 3 ;col++) {
-							
-							buttons[row][col].setEnabled(true);
-							
-						}
-					}
-					name.setEditable(false);
-				}catch(Exception e1){
-					e1.printStackTrace();
-				}
-				//name.setEditable(false);
 				
 			}
-			
-	    });
+		});
+//	    start_Game.addActionListener(new ActionListener() 
+//	    {
+//			
+//			public void actionPerformed(ActionEvent e) {
+//				
+//				currentUserName = name.getText();
+//				
+//				try {
+//					//unlockBoard();
+//					client = new Client(GUI_board.this,currentUserName);
+//					client.run();
+//					//unlockBoard();
+//				}catch(Exception e1){
+//					System.out.println("Error");;
+//				}
+//				//name.setEditable(false);
+//				
+//			}
+//			
+//	    });
 	    
 	     /*start_Game.addActionListener(new ActionListener() 
 	     {
@@ -112,7 +150,7 @@ public class GUI_board extends JFrame{
 	     });*/
 	    	
 	    name = new JTextField("Please enter your name");
-	    //name.setBackground(Color.decode("#80FAC5"));
+	    name.setBackground(Color.decode("#80FAC5"));
 	    	
 	    name.addActionListener(new ActionListener() {
 			
@@ -134,20 +172,12 @@ public class GUI_board extends JFrame{
 		{
 			public void actionPerformed(ActionEvent ev)
 		    {
-				if(client == null) {
-					dispose();
-				}
-				else {
-					try {
+		    	try {
 					client.quit();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-		    	exitFlag = true;
 		    	dispose();
-				}
-		    	
-		    	
 		    		
 		    }	
 		    	
@@ -161,10 +191,9 @@ public class GUI_board extends JFrame{
 				try {
 					client.quit();
 					clearBoard();
-					unlockBoard();
-			    	client = new Client(GUI_board.this,currentUserName);
-			    	start = true;
-			    	
+					lockBoard();
+			    	client = new Client(GUI_board.this);
+			    	//client.run();
 				}catch(Exception e) {
 					
 				}
@@ -182,9 +211,8 @@ public class GUI_board extends JFrame{
 	        
 	    this.setSize(400,450);
 		this.setVisible(true);  
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		//setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
-		//lockBoard();
 	}
 	public void lockBoard() {
 		
@@ -225,5 +253,4 @@ public class GUI_board extends JFrame{
 //		start_Game.setVisible(false);
 //		start_Game.setEnabled(false);
 	}
-
 }
