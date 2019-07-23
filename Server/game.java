@@ -89,6 +89,7 @@ public class game implements Runnable{
 			}
 			
 			output.println("SYMBOL "+(clientPlayer.returnsym()==global.X?"X":"O"));
+			output.println(gameboard.toGUIBoard());
 			while(gameboard.returnInterState()  == global.E)
 			{
 				
@@ -110,9 +111,9 @@ public class game implements Runnable{
 				client_turn = !client_turn;
 				output.println(gameboard.toGUIBoard());
 				
-				//output.println(gameboard.toString());
+				output.println(gameboard.toString());
 			}
-			
+			output.println(gameboard.toGUIBoard());
 			if(gameboard.returnInterState() == global.X)
 			{
 				output.println("GAME: X wins");
