@@ -22,7 +22,6 @@ public class GUI_board extends JFrame{
 	private JMenu menu;
 	private JMenuBar mb;
 	private JMenuItem exit,restart;
-	
 	public Button[][] buttons;// a 3x3 Jbutton
 	private String currentUserName;
 	//private JFrame fr;
@@ -60,8 +59,8 @@ public class GUI_board extends JFrame{
 	    }
 	    
 	    start_Game = new JButton("Start");
-	    start_Game.setBackground(Color.decode("#80FAC5"));
-	    start_Game.setForeground(Color.decode("#F35050"));
+	    start_Game.setBackground(Color.decode("#3B5998"));
+	    start_Game.setForeground(Color.decode("#FFFFFF"));
 	    //buttonPanel.add(start_Game);
 	    //start_Game.setBounds(125,270,150,50);
 	    start_Game.addActionListener(new ActionListener() 
@@ -76,8 +75,8 @@ public class GUI_board extends JFrame{
 					client = new Client(GUI_board.this,currentUserName);
 					//getClient().run();
 					start = true;
-					JButton button = (JButton) e.getSource();
-					button.setEnabled(false);
+					JButton button = (JButton) e.getSource();	//get the current button
+					button.setEnabled(false);	//disable current button
 					for(int row = 0; row < 3; row++) {
 						for(int col = 0; col < 3 ;col++) {
 							
@@ -111,7 +110,7 @@ public class GUI_board extends JFrame{
 	    		}
 	     });*/
 	    	
-	    name = new JTextField("Please enter your name");
+	    name = new JTextField("Default user");
 	    //name.setBackground(Color.decode("#80FAC5"));
 	    	
 	    name.addActionListener(new ActionListener() {
@@ -122,6 +121,8 @@ public class GUI_board extends JFrame{
 				start_Game.doClick();
 			}
 		});
+	    
+	    
 	    buttonPanel.add(start_Game);
 	    buttonPanel.add(name);
 	        
@@ -136,6 +137,8 @@ public class GUI_board extends JFrame{
 		    {
 				if(client == null) {
 					dispose();
+					exitFlag = true;
+					
 				}
 				else {
 					try {
@@ -221,9 +224,6 @@ public class GUI_board extends JFrame{
 				
 			}
 		}
-//		name.setEditable(false);
-//		start_Game.setVisible(false);
-//		start_Game.setEnabled(false);
 	}
 
 }

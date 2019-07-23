@@ -6,6 +6,7 @@ public class Tester {
 		//System.out.println("hello");
 		GUI_board board = new GUI_board();
 		//System.out.println(board.start);
+		board.lockBoard();
 		while(true) {
 			System.out.print("");
 			System.out.flush();

@@ -15,11 +15,11 @@ public class Client{
 	private String name;
 	private String symbol;
 	private boolean gameEnd;
-	
+
 	public Client(GUI_board board,String name) throws UnknownHostException, IOException {
 		this.board = board;
 		setName(name);
-		this.socket = new Socket("10.242.62.138", 59090);
+		this.socket = new Socket("localhost", 59090);
 		this.gameEnd = false;
 		this.input = new Scanner(socket.getInputStream());
 	    this.output = new PrintWriter(socket.getOutputStream(),true);
@@ -65,6 +65,8 @@ public class Client{
 			}
 			else if(command.startsWith("GAME")) {
 				setGameEnd(true);
+				//board.clearBoard();
+				board.lockBoard();
 			}
 			else if(command.startsWith("SYMBOL")) {
 				setSymbol(command.substring(7,8));
@@ -73,7 +75,7 @@ public class Client{
 				output.println(getName());
 			}
 		}
-		System.out.println(isGameEnd());
+		System.out.println("Game End");
 	}
 		
 	public void setName(String name) {
