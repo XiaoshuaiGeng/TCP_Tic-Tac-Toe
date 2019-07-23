@@ -7,9 +7,9 @@
   
 ## To run Client program: 
   ### In another terminal:
-   `java Client localhost`
-  ### On another device from a different network:
-   `java Client [server's IP address]`
+   `java Tester`
+  ~~### On another device from a different network:~~
+  ~~`java Client [server's IP address]`~~
 - **block.java** a block represents a playable cell and maintains a state attribute that is either EMPTY, occupied by X, or occupied by O) . By default it is EMPTY, would require setState, getState, and a toString where EMPTY is just a blank space.
 
 - **board.java** a board has or contains 9 blocks in a 2D array (3x3) that shapes the game space of tic-tac-toe. It also maintains an internal state which can be one of the following: EMPTY (the initial state of the board), X (X claims a win), Y (Y claims a win), or DRAW (where neither X nor Y can claim a win and no further moves are possible). The board has the key methods makeMove( ) that is called by a player making a move and getState() or updateState() that updates the state of the board after every move. It checks for a win or a draw when they occur. Note that the board instantiates and maintains all the blocks.
