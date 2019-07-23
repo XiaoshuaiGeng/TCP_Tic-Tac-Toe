@@ -1,11 +1,16 @@
 
 public class board{
-	private block[][] blo;
+	private block[][] blo = new block[3][3];
 	private int interState;
 	
 	public board()
 	{
-		blo = new block[3][3];
+		for(int i = 0; i < 3;i++) {
+			for(int j = 0; j <3;j++) {
+				blo[i][j] = new block();
+			}
+		}
+		this.interState = global.E;
 	}
 	
 	/**
@@ -16,12 +21,28 @@ public class board{
 		return interState;
 	}
 	
+	
+	/**
+	 * 
+	 * 
+	 */
+	public String toGUIBoard() {
+		String result  = "BOARD ";
+		for(int i = 0; i < 3;i++) {
+			for(int j = 0; j <3; j++) {
+				result += blo[i][j].getState();
+			}
+		}
+		return result;
+		
+	}
+	
 	/**
 	 * @return this block
 	 */
 	public String toString()
 	{
-		return "\t" +String.format("%10s", "col 0") + String.format("%10s", "col 1") + String.format("%10s", "col 2")+"\nrow 0" + blo[0][0].toString() + blo[0][1].toString()+blo[0][2].toString()+"\n\nrow 1"+blo[1][0].toString() + blo[1][1].toString()+blo[1][2].toString()+"\n\nrow 2"+blo[2][0].toString() + blo[2][1].toString()+blo[2][2].toString();
+		return "\t" +String.format("%10s", "col 0") + String.format("%10s", "col 1") + String.format("%10s", "col 2")+"\nrow 0" + blo[0][0].toString() + blo[0][1].toString()+blo[0][2].toString()+"\n\nrow 1"+blo[1][0].toString() + blo[1][1].toString()+blo[1][2].toString()+"\n\nrow 2"+blo[2][0].toString() + blo[2][1].toString()+blo[2][2].toString()+"\n\n";
 	}
 	
 	/**
@@ -34,19 +55,12 @@ public class board{
 		blo[a][b].setState(sym);
 		updateState();
 	}
-	
-	/**
-	 * @param a an positive integer denotes x-axis
-	 * @param b an positive integer denotes y-axis
-	 * @return whether position [a][b] is empty or not
-	 */
-	public boolean checkEmpty(int a, int b)
+
+	public boolean checkEmpty(int row, int col)
 	{
-		if(blo[a][b].getState() == global.E)
-		{
-			return true;
-		}
-		return false;
+		return blo[row][col].getState() == global.E;
+		
+		
 	}
 	
 	/**
@@ -60,7 +74,7 @@ public class board{
 		//check row
 		for(i = 0; i < 3; i++)
 		{
-			if (checkCol(blo[i][0].getState(), blo[i][1].getState(), blo[i][2].getState()) == true)
+			if (checkCol(blo[i][0].getState(), blo[i][1].getState(), blo[i][2].getState()))
 			{
 				interState = blo[i][0].getState();
 				return;
@@ -69,14 +83,14 @@ public class board{
 		//check col
 		for(i = 0; i < 3; i++)
 		{
-			if (checkCol(blo[0][i].getState(), blo[1][i].getState(), blo[2][i].getState()) == true)
+			if (checkCol(blo[0][i].getState(), blo[1][i].getState(), blo[2][i].getState()))
 			{
 				interState = blo[0][i].getState();
 				return;
 			}
 		}
 		//check dia
-		if (checkCol(blo[0][0].getState(), blo[1][1].getState(), blo[2][2].getState()) == true || checkCol(blo[0][2].getState(), blo[1][1].getState(), blo[2][0].getState()) == true)
+		if (checkCol(blo[0][0].getState(), blo[1][1].getState(), blo[2][2].getState()) || checkCol(blo[0][2].getState(), blo[1][1].getState(), blo[2][0].getState()))
 		{
 			interState = blo[1][1].getState();
 			return;
@@ -110,4 +124,13 @@ public class board{
 		return(s1 != global.E && s1 == s2 && s2 == s3);
 	}
 	
+	public void clearBoard() {
+		
+		for(int i = 0; i < 3;i++) {
+			for(int j = 0; j <3;j++) {
+				blo[i][j] = new block();
+			}
+		}
+		this.interState = global.E;
+	}
 }

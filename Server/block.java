@@ -1,7 +1,6 @@
 
 public class block {
-	private int state;
-	
+	private int state = 0;
 	
 	/**
 	 * @return create a block with state is E
@@ -20,12 +19,13 @@ public class block {
 		return state;
 	}
 	
+	
 	/**
 	 * @return set state to given String
 	 */
-	public void setState(int a)
+	public void setState(int state)
 	{
-		state = a;
+		this.state = state;
 	}
 	
 	/**
@@ -36,7 +36,7 @@ public class block {
 		if(state == global.E)
 		{
 			return String.format("%10s", " ");
-		}if(state == global.X)
+		}else if(state == global.X)
 		{
 			return String.format("%10s", "X");
 		}else
