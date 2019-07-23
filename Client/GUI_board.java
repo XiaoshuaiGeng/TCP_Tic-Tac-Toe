@@ -167,7 +167,7 @@ public class GUI_board extends JFrame{
 					client.quit();
 					clearBoard();
 					unlockBoard();
-			    	client = new Client(GUI_board.this,currentUserName);
+			    	client = new Client(IPAddress.getText(),GUI_board.this,currentUserName);
 			    	start = true;
 			    	
 				}catch(Exception e) {
