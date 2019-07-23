@@ -3,27 +3,30 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.net.UnknownHostException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 //import Client.GUI_board.block;
 
+@SuppressWarnings("serial")
 public class GUI_board extends JFrame{
 	public Client client;
 	private JButton start_Game;
-	private JTextField name;
+	private JTextField name,IPAddress;
 	private JMenu menu;
 	private JMenuBar mb;
 	private JMenuItem exit,restart;
 	public Button[][] buttons;// a 3x3 Jbutton
 	private String currentUserName;
+	private String socket_IP; //store the socket IP address
 	//private JFrame fr;
 	//private String symbol = "O";
 	//public PrintWriter output;
@@ -69,10 +72,10 @@ public class GUI_board extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				
 				currentUserName = name.getText();
-				
+				socket_IP = IPAddress.getText();
 				try {
 					
-					client = new Client(GUI_board.this,currentUserName);
+					client = new Client(socket_IP,GUI_board.this,currentUserName);
 					//getClient().run();
 					start = true;
 					JButton button = (JButton) e.getSource();	//get the current button
@@ -85,6 +88,12 @@ public class GUI_board extends JFrame{
 						}
 					}
 					name.setEditable(false);
+					IPAddress.setEditable(false);
+				}catch(UnknownHostException v){
+					JOptionPane.showMessageDialog(GUI_board.this,
+						    "Unknown IP address",
+						    "Connect Failed",
+						    JOptionPane.WARNING_MESSAGE);
 				}catch(Exception e1){
 					e1.printStackTrace();
 				}
@@ -122,10 +131,19 @@ public class GUI_board extends JFrame{
 			}
 		});
 	    
+	    IPAddress = new JTextField("localhost");
+	    IPAddress.setBackground(Color.decode("#3B5998"));
+	    IPAddress.setForeground(Color.decode("#FFFFFF"));
+	    IPAddress.setHorizontalAlignment(JTextField.CENTER);
+	    IPAddress.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				socket_IP = IPAddress.getText();
+			}
+		});
 	    
 	    buttonPanel.add(start_Game);
 	    buttonPanel.add(name);
-	        
+	    buttonPanel.add(IPAddress);
 	        // set menu
 		mb = new JMenuBar();
 		menu = new JMenu("Menu");
@@ -202,6 +220,7 @@ public class GUI_board extends JFrame{
 		name.setEditable(true);
 		//start_Game.setVisible(true);
 		start_Game.setEnabled(true);
+		IPAddress.setEditable(true);
 	}
 	public void unlockBoard() {
 		for(int row = 0; row < 3; row++) {
@@ -214,6 +233,7 @@ public class GUI_board extends JFrame{
 		name.setEditable(false);
 		//start_Game.setVisible(false);
 		start_Game.setEnabled(false);
+		IPAddress.setEditable(false);
 	}
 	
 	public void clearBoard() {

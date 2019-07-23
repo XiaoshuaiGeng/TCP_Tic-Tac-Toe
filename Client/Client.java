@@ -25,6 +25,14 @@ public class Client{
 	    this.output = new PrintWriter(socket.getOutputStream(),true);
 	} 
 	
+	public Client(String socketIP,GUI_board board,String name) throws UnknownHostException, IOException {
+		this.board = board;
+		setName(name);
+		this.socket = new Socket(socketIP, 59090);
+		this.gameEnd = false;
+		this.input = new Scanner(socket.getInputStream());
+	    this.output = new PrintWriter(socket.getOutputStream(),true);
+	} 
 	public void quit() throws IOException {
 		if(!gameEnd)
 			output.println("QUIT");
