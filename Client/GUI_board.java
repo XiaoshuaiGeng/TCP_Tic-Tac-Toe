@@ -72,11 +72,20 @@ public class GUI_board extends JFrame{
 				currentUserName = name.getText();
 				
 				try {
-					unlockBoard();
+					
 					client = new Client(GUI_board.this,currentUserName);
 					//getClient().run();
 					start = true;
-					//System.out.println(start);
+					JButton button = (JButton) e.getSource();
+					button.setEnabled(false);
+					for(int row = 0; row < 3; row++) {
+						for(int col = 0; col < 3 ;col++) {
+							
+							buttons[row][col].setEnabled(true);
+							
+						}
+					}
+					name.setEditable(false);
 				}catch(Exception e1){
 					e1.printStackTrace();
 				}
@@ -125,13 +134,20 @@ public class GUI_board extends JFrame{
 		{
 			public void actionPerformed(ActionEvent ev)
 		    {
-		    	try {
+				if(client == null) {
+					dispose();
+				}
+				else {
+					try {
 					client.quit();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 		    	exitFlag = true;
 		    	dispose();
+				}
+		    	
+		    	
 		    		
 		    }	
 		    	
@@ -148,6 +164,7 @@ public class GUI_board extends JFrame{
 					unlockBoard();
 			    	client = new Client(GUI_board.this,currentUserName);
 			    	start = true;
+			    	
 				}catch(Exception e) {
 					
 				}

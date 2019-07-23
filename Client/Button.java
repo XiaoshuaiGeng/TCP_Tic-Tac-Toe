@@ -19,7 +19,7 @@ public class Button extends JButton{
 	}
 	
 	public void setMark(String mark) {
-		System.out.println("set mark!!");
+		//System.out.println("set mark!!");
 		if(mark.equals("0"))
 			setText("");
 		if(mark.equals("1")) {
