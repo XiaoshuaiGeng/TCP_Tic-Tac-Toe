@@ -3,7 +3,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,6 +14,7 @@ import javax.swing.JTextField;
 
 //import Client.GUI_board.block;
 
+@SuppressWarnings("serial")
 public class GUI_board extends JFrame{
 	public Client client;
 	private JButton start_Game;
