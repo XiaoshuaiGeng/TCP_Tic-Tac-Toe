@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 //import Client.GUI_board.block;
 
 public class GUI_board extends JFrame{
-	private Client client;
+	public Client client;
 	private JButton start_Game;
 	private JTextField name;
 	private JMenu menu;
@@ -28,6 +28,8 @@ public class GUI_board extends JFrame{
 	//private JFrame fr;
 	//private String symbol = "O";
 	//public PrintWriter output;
+	public boolean start = false;
+	public boolean exitFlag = false;
 		
 	public GUI_board()
 	{
@@ -71,9 +73,10 @@ public class GUI_board extends JFrame{
 				
 				try {
 					unlockBoard();
-					Client client = new Client(GUI_board.this,currentUserName);
-					client.run();
-					
+					client = new Client(GUI_board.this,currentUserName);
+					//getClient().run();
+					start = true;
+					//System.out.println(start);
 				}catch(Exception e1){
 					e1.printStackTrace();
 				}
@@ -127,6 +130,7 @@ public class GUI_board extends JFrame{
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+		    	exitFlag = true;
 		    	dispose();
 		    		
 		    }	
@@ -141,9 +145,9 @@ public class GUI_board extends JFrame{
 				try {
 					client.quit();
 					clearBoard();
-					lockBoard();
+					unlockBoard();
 			    	client = new Client(GUI_board.this,currentUserName);
-			    	client.run();
+			    	start = true;
 				}catch(Exception e) {
 					
 				}
@@ -163,7 +167,7 @@ public class GUI_board extends JFrame{
 		this.setVisible(true);  
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
-		lockBoard();
+		//lockBoard();
 	}
 	public void lockBoard() {
 		
@@ -204,4 +208,5 @@ public class GUI_board extends JFrame{
 //		start_Game.setVisible(false);
 //		start_Game.setEnabled(false);
 	}
+
 }

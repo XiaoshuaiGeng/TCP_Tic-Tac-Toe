@@ -1,6 +1,3 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 
 public class Button extends JButton{
@@ -17,12 +14,12 @@ public class Button extends JButton{
 		
 	}
 	
-	
 	public String getIndex() {
 		return index;
 	}
 	
 	public void setMark(String mark) {
+		System.out.println("set mark!!");
 		if(mark.equals("0"))
 			setText("");
 		if(mark.equals("1")) {
@@ -34,6 +31,9 @@ public class Button extends JButton{
 			this.setEnabled(false);
 		}
 	}
-
+	
+	public Button getButton() {
+		return this;
+	}
 	
 }
