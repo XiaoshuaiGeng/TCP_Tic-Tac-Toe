@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.ConnectException;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 
 import javax.swing.JButton;
@@ -88,7 +89,11 @@ public class GUI_board extends JFrame{
 						    "Server is not running",
 						    "Connect Failed",
 						    JOptionPane.WARNING_MESSAGE);
-				
+				}catch(SocketException se){
+					JOptionPane.showMessageDialog(GUI_board.this,
+						    "Invalid IP address",
+						    "Connect Failed",
+						    JOptionPane.WARNING_MESSAGE);
 				}catch(UnknownHostException v){
 					JOptionPane.showMessageDialog(GUI_board.this,
 						    "Unknown IP address",
@@ -167,7 +172,7 @@ public class GUI_board extends JFrame{
 					client.quit();
 					clearBoard();
 					unlockBoard();
-			    	client = new Client(socket_IP,GUI_board.this,currentUserName);
+			    	client = new Client(IPAddress.getText(),GUI_board.this,currentUserName);
 			    	start = true;
 			    	
 				}catch(Exception e) {
