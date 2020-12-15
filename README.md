@@ -1,4 +1,4 @@
-# TCP_Tic-Tac-Toe
+# TCP_Tic-Tac-Toe (Socket Programming)
 ## Try to commit in a new branch when uploading, we'll merge everyones work back to master when its done
 ![Commit Instruction](/images/commit_instruction.jpg)
 A Tic-Tac-Toe board game through TCP/IP socket
